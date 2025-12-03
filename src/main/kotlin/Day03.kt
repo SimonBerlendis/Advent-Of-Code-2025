@@ -19,16 +19,11 @@ fun day03_part2(input: List<String>): Int {
 }
 
 fun joltage(bank: String, nDigits: Int) : Int {
-    if(nDigits == 2){
-        val firstDigit = bank.take(bank.length - 1).max()
-        val secondDigit = bank.drop(bank.indexOf(firstDigit) + 1).max()
-        return "$firstDigit$secondDigit".toInt()
-    } else if (nDigits == 3) {
-        val firstDigit = bank.take(bank.length - 2).max()
-        val secondDigit = bank.substring(bank.indexOf(firstDigit) + 1, bank.length - 1).max()
-        val thirdDigit = bank.drop(bank.indexOf(secondDigit) + 1).max()
-        return "$firstDigit$secondDigit$thirdDigit".toInt()
+    var result = ""
+    for(i in 0..<nDigits){
+        val start = if(result.isNotEmpty()) bank.indexOf(result.last()) + 1 else 0
+        val end = bank.length - nDigits + i + 1
+        result += bank.substring(start, end).max()
     }
-
-    return 0
+    return result.toInt()
 }
