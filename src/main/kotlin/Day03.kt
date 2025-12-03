@@ -1,7 +1,6 @@
 package org.example
 
 import readInput
-import java.math.BigInteger
 
 fun main() {
     val testInput = readInput("Day03_test")
@@ -11,20 +10,20 @@ fun main() {
     println(day03_part2(testInput))
 }
 
-fun day03_part1(input: List<String>): BigInteger {
+fun day03_part1(input: List<String>): Long {
     return input.sumOf { joltage(it, 2) }
 }
 
-fun day03_part2(input: List<String>): BigInteger {
+fun day03_part2(input: List<String>): Long {
     return input.sumOf { joltage(it, 12) }
 }
 
-fun joltage(bank: String, nDigits: Int) : BigInteger {
+fun joltage(bank: String, nDigits: Int) : Long {
     var result = ""
+    var remainingBatteries = bank
     for(i in 0..<nDigits){
-        val start = if(result.isNotEmpty()) bank.indexOf(result.last()) + 1 else 0
-        val end = bank.length - nDigits + i + 1
-        result += bank.substring(start, end).max()
+        result += remainingBatteries.substring(0, remainingBatteries.length - nDigits + i + 1).max()
+        remainingBatteries = remainingBatteries.substring(remainingBatteries.indexOf(result.last()) + 1)
     }
-    return result.toBigInteger()
+    return result.toLong()
 }
