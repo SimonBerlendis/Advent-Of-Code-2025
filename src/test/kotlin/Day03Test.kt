@@ -58,4 +58,28 @@ class Day03Test {
         val actual = joltage("818181911112111", 3)
         assertEquals(921.toBigInteger(), actual)
     }
+
+    @Test
+    fun day03_part2_987654321111111_for_12() {
+        val actual = joltage("987654321111111", 12)
+        assertEquals(987654321111.toBigInteger(), actual)
+    }
+
+    @Test
+    fun day03_part2_811111111111119_for_12() {
+        val actual = joltage("811111111111119", 12)
+        assertEquals(811111111119.toBigInteger(), actual)
+    }
+
+    @Test
+    fun day03_part2_234234234234278_for_12() {
+        val actual = joltage("234234234234278", 12)
+        assertEquals(434234234278.toBigInteger(), actual)
+    }
+
+    @Test
+    fun day03_part2_818181911112111_for_12() {
+        val actual = joltage("818181911112111", 12)
+        assertEquals(888911112111.toBigInteger(), actual)
+    }
 }
