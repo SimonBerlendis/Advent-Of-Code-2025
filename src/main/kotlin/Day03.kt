@@ -15,8 +15,8 @@ fun day03_part1(input: List<String>): Int {
 }
 
 fun joltage(bank: String) : Int {
-    val firstDigit = bank.substring(0, bank.length-1).max()
-    val secondDigit = bank.substring(bank.indexOf(firstDigit) + 1).max()
+    val firstDigit = bank.take(bank.length - 1).max()
+    val secondDigit = bank.drop(bank.indexOf(firstDigit) + 1).max()
     return "$firstDigit$secondDigit".toInt()
 }
 
