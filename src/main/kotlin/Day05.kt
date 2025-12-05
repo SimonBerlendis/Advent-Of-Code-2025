@@ -1,8 +1,6 @@
 package org.example
 
 import readInput
-import kotlin.math.max
-import kotlin.math.min
 
 fun main() {
     val testInput = readInput("Day05_test")
@@ -13,8 +11,17 @@ fun main() {
 }
 
 fun day05_part1(input: List<String>): Int {
-    return 0
+    val ranges = ranges(input)
+    val ids = getIds(input)
+    return ids.count { id -> ranges.any{it.contains(id)} }
 }
+
+private fun getIds(input: List<String>): List<Long> =
+    input.dropWhile { it.isNotEmpty() }.drop(1).map { it.toLong() }
+
+private fun ranges(input: List<String>): List<LongRange> =
+    input.takeWhile { it.isNotEmpty() }
+        .map { it.split("-")[0].toLong()..it.split("-")[1].toLong() }
 
 fun day05_part2(input: List<String>): Int {
     return 0
