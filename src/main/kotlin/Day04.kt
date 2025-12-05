@@ -12,11 +12,8 @@ fun main() {
     println(day04_part2(testInput))
 }
 
-private fun String.convertIntoGridLine(): List<Int> =
-    replace(".", "0").replace("@", "1").split("").filter { it.isNotEmpty() }.map { it.toInt() }
-
 fun day04_part1(input: List<String>): Int {
-    val grid = input.map { line -> line.convertIntoGridLine() }
+    val grid = input.map { line -> line.map { if (it == '.') 0 else 1 } }
     return countAccessibleRoll(grid)
 }
 
@@ -25,7 +22,7 @@ fun day04_part2(input: List<String>): Int {
 }
 
 fun countAccessibleRoll(grid: List<List<Int>>): Int {
-    return grid.flatMapIndexed { row, line -> line.filterIndexed { col, _ -> grid.neighborsRollCount(row, col) != 8 } }.sum()
+    return grid.flatMapIndexed { row, line -> line.filterIndexed { col, _ -> grid.neighborsRollCount(row, col) < 4 } }.sum()
 }
 
 private fun List<List<Int>>.neighborsRollCount(row: Int, col: Int): Int {

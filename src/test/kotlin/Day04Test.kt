@@ -13,7 +13,7 @@ class Day04Test {
             ".@@@.",
             "....",
         )
-        assertEquals(8, day04_part1(input))
+        assertEquals(4, day04_part1(input))
     }
 
     @Test
@@ -37,7 +37,7 @@ class Day04Test {
             ".@@@.",
             "....",
         )
-        assertEquals(8, day04_part1(input))
+        assertEquals(4, day04_part1(input))
     }
 
 }
