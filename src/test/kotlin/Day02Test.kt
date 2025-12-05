@@ -1,6 +1,6 @@
 import org.example.day02_part1
 import org.example.day02_part2
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class Day02Test {

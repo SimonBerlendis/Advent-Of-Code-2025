@@ -6,12 +6,12 @@ import java.lang.Math.floorMod
 fun main() {
     val testInput = readInput("Day01_test")
     println("Part 1: ")
-    println(part1(testInput))
+    println(day01_part1(testInput))
     println("Part 2: ")
-    println(part2(testInput))
+    println(day01_part2(testInput))
 }
 
-fun part1(input: List<String>): Int {
+fun day01_part1(input: List<String>): Int {
     var password = 0
 
     var dial = 50
@@ -24,7 +24,7 @@ fun part1(input: List<String>): Int {
     return password
 }
 
-fun part2(input: List<String>): Int {
+fun day01_part2(input: List<String>): Int {
     var password = 0
 
     var dial = 50

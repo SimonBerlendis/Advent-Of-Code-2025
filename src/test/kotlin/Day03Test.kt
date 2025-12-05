@@ -1,7 +1,5 @@
-import org.example.day02_part1
-import org.example.day03_part1
 import org.example.joltage
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class Day03Test {
