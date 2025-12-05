@@ -10,6 +10,10 @@ fun main() {
     println(day05_part2(testInput))
 }
 
+private fun ranges(input: List<String>): List<LongRange> =
+    input.takeWhile { it.isNotEmpty() }
+        .map { it.split("-")[0].toLong()..it.split("-")[1].toLong() }
+
 fun day05_part1(input: List<String>): Int {
     val ranges = ranges(input)
     val ids = getIds(input)
@@ -19,10 +23,26 @@ fun day05_part1(input: List<String>): Int {
 private fun getIds(input: List<String>): List<Long> =
     input.dropWhile { it.isNotEmpty() }.drop(1).map { it.toLong() }
 
-private fun ranges(input: List<String>): List<LongRange> =
-    input.takeWhile { it.isNotEmpty() }
-        .map { it.split("-")[0].toLong()..it.split("-")[1].toLong() }
+fun day05_part2(input: List<String>): Long {
+    val ranges = ranges(input)
+    return ranges.countTotalIds()
+}
 
-fun day05_part2(input: List<String>): Int {
-    return 0
+private fun List<LongRange>.countTotalIds(): Long {
+    var result = 0.toLong()
+
+    val sortedRanges = this.sortedBy { it.start }
+    var currentRange = sortedRanges.first()
+    for (range in sortedRanges.drop(1)) {
+        if (!currentRange.contains(range.start)) {
+            result += (currentRange.endInclusive - currentRange.start) + 1
+            currentRange = range
+        }
+        if (!currentRange.contains(range.endInclusive)){
+            currentRange = currentRange.start..range.endInclusive
+        }
+    }
+    result += (currentRange.endInclusive - currentRange.start) + 1
+
+    return result
 }
