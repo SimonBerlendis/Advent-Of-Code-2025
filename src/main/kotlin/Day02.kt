@@ -1,9 +1,6 @@
 package org.example
 
 import readInput
-import step
-import sum
-import java.math.BigInteger
 
 fun main() {
     val testInput = readInput("Day02_test").first()
@@ -13,15 +10,15 @@ fun main() {
     println(day02_part2(testInput))
 }
 
-private fun ranges(input: String): List<ClosedRange<BigInteger>> {
-    return input.split(",").map { it.split("-")[0].toBigInteger()..it.split("-")[1].toBigInteger() }
+private fun ranges(input: String): List<LongRange> {
+    return input.split(",").map { it.split("-")[0].toLong()..it.split("-")[1].toLong() }
 }
 
-fun day02_part1(input: String): BigInteger {
-    return ranges(input).sumOf { range -> range.step().filter { it.isInvalid() }.sum() }
+fun day02_part1(input: String): Long {
+    return ranges(input).sumOf { range -> range.filter { it.isInvalid() }.sum() }
 }
 
-private fun BigInteger.isInvalid(): Boolean {
+private fun Long.isInvalid(): Boolean {
     val string = toString()
     val length = string.length
 
@@ -29,16 +26,16 @@ private fun BigInteger.isInvalid(): Boolean {
         return false
     }
 
-    val first = string.substring(0, length / 2).toBigInteger()
-    val second = string.substring(length / 2).toBigInteger()
+    val first = string.substring(0, length / 2).toLong()
+    val second = string.substring(length / 2).toLong()
     return first == second
 }
 
-fun day02_part2(input: String): BigInteger {
-    return ranges(input).sumOf { range -> range.step().filter { it.isInvalidPart2() }.sum() }
+fun day02_part2(input: String): Long {
+    return ranges(input).sumOf { range -> range.filter { it.isInvalidPart2() }.sum() }
 }
 
-private fun BigInteger.isInvalidPart2(): Boolean {
+private fun Long.isInvalidPart2(): Boolean {
     val string = toString()
     val length = string.length
 
