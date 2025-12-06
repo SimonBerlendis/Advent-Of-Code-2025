@@ -1,5 +1,6 @@
 import org.example.day05_part1
 import org.example.day06_part1
+import org.example.day06_part2
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -45,4 +46,44 @@ class Day06Test {
         assertEquals(11, day06_part1(input))
     }
 
+    @Test
+    fun day06_part2_1plus1() {
+        val input = listOf(
+            "10",
+            " 1",
+            "+ ",
+        )
+        assertEquals(2, day06_part2(input))
+    }
+
+    @Test
+    fun day06_part2_2plus2plus2() {
+        val input = listOf(
+            "200",
+            " 20",
+            "  2",
+            "+  ",
+        )
+        assertEquals(6, day06_part2(input))
+    }
+
+    @Test
+    fun day06_part2_3times3() {
+        val input = listOf(
+            "30",
+            " 3",
+            "* ",
+        )
+        assertEquals(9, day06_part2(input))
+    }
+
+    @Test
+    fun day06_part2_two_operations() {
+        val input = listOf(
+            "30 10",
+            " 3  1",
+            "*  + ",
+        )
+        assertEquals(11, day06_part2(input))
+    }
 }

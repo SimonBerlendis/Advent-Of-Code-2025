@@ -32,5 +32,28 @@ private fun solve(numbers: List<Long>, operation: String): Long =
     if (operation == "+") numbers.sum() else numbers.reduce { acc, i -> acc * i }
 
 fun day06_part2(input: List<String>): Long {
-    return 0
+    val numbersPerProblem = getNumbersPerProblemInCephalopods(input)
+    val operations = getOperationsPerProblem(input)
+    return numbersPerProblem.zip(operations).sumOf { (numbers, operation) -> solve(numbers, operation) }
 }
+
+fun getNumbersPerProblemInCephalopods(input: List<String>) : List<List<Long>> {
+    val numberOfProblems = getOperationsPerProblem(input).size
+    val result = List(numberOfProblems) { mutableListOf<Long>()}
+
+    var currentProblem = 0
+    for(column in 0..<input.first().length){
+        val characters = input.mapNotNull { it.getOrNull(column) }
+        if (characters.all { it == ' ' }) {
+            currentProblem++
+            continue
+        }
+
+        result[currentProblem].add(characters.dropLast(1).toNumber())
+    }
+
+    return result
+}
+
+private fun List<Char>.toNumber(): Long =
+    joinToString("").trim().toLong()
