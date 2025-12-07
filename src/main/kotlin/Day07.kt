@@ -11,14 +11,20 @@ fun main() {
 }
 
 fun day07_part1(input: List<String>): Int {
-    var result = 0
-    var beamPositions = "S".toRegex().findAll(input.first()).map { it.range.first }
-    for (line in input.drop(1)) {
-        val splitterPositions = "\\^".toRegex().findAll(line).map { it.range.first }
-        result += splitterPositions.count { splitter -> beamPositions.any { beam -> beam == splitter } }
-        beamPositions = beamPositions.flatMap { split(it, splitterPositions) }.distinct()
-    }
-    return result
+    val beamPositions = "S".toRegex().findAll(input.first()).map { it.range.first }
+    return splitCount(input.drop(1), beamPositions)
+}
+
+private fun splitCount(manifold: List<String>, beamPositions: Sequence<Int>): Int {
+    if (manifold.isEmpty()) return 0
+    val manifoldLine = manifold.first()
+
+    val splitterPositions = "\\^".toRegex().findAll(manifoldLine).map { it.range.first }
+    val splitCount = splitterPositions.count { splitter -> beamPositions.any { beam -> beam == splitter } }
+
+    val newBeamPositions = beamPositions.flatMap { split(it, splitterPositions) }.distinct()
+    val remainingManifold = manifold.drop(1)
+    return splitCount + splitCount(remainingManifold, newBeamPositions)
 }
 
 private fun split(beam: Int, splitters: Sequence<Int>): List<Int> =
