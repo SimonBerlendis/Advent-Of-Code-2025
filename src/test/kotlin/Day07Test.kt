@@ -151,6 +151,21 @@ class Day07Test {
     }
 
     @Test
+    fun day07_part2_three_level() {
+        val input = listOf(
+            ".......S.......",
+            "...............",
+            ".......^.......",
+            "...............",
+            "......^.^......",
+            "...............",
+            ".....^.^.^.....",
+            "...............",
+        )
+        assertEquals(8, day07_part2(input))
+    }
+
+    @Test
     fun day07_part2_use_case() {
         val input = listOf(
             ".......S.......",

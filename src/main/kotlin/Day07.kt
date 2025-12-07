@@ -33,17 +33,23 @@ private fun split(beam: Int, splitters: Sequence<Int>): List<Int> =
 private fun findSplitters(manifoldLine: String): Sequence<Int> =
     "\\^".toRegex().findAll(manifoldLine).map { it.range.first }
 
-fun day07_part2(input: List<String>): Int {
-    val beamPosition = input.first().indexOf("S")
-    return timelineCount(input, 1, beamPosition)
+fun day07_part2(input: List<String>): Long {
+    var beams = mapOf(input.first().indexOf("S") to 1.toLong())
+
+    for (line in input.drop(1)) {
+        val splitterPositions = findSplitters(line)
+        beams = split(beams, splitterPositions)
+    }
+
+    return beams.values.sum()
 }
 
-private fun timelineCount(manifold: List<String>, lineNumber: Int, beamPosition: Int): Int {
-    if (lineNumber == manifold.size) return 1
-
-    return if (manifold[lineNumber][beamPosition] != '^')
-        timelineCount(manifold, lineNumber + 1, beamPosition)
-    else
-        timelineCount(manifold, lineNumber + 1, beamPosition - 1) +
-                timelineCount(manifold, lineNumber + 1, beamPosition + 1)
+private fun split(beams: Map<Int, Long>, splitter: Sequence<Int>): Map<Int, Long> {
+    val splitBeams = beams.toMutableMap()
+    for ((position, count) in beams.filterKeys { position -> splitter.any { it == position } }) {
+        splitBeams[position] = 0
+        splitBeams[position - 1] = splitBeams.getOrDefault(position - 1, 0) + count
+        splitBeams[position + 1] = splitBeams.getOrDefault(position + 1, 0) + count
+    }
+    return splitBeams
 }
