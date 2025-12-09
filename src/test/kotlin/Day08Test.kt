@@ -27,6 +27,13 @@ class Day08Test {
     }
 
     @Test
+    fun buildCircuit_with_two_connection_connected_from_second() {
+        val connections = listOf(1 to 2, 1 to 3)
+        val expected = listOf(listOf(1, 2, 3))
+        assertContentEquals(expected, buildCircuit(connections))
+    }
+
+    @Test
     fun day08_part1_toto() {
         val input = listOf(
             "162,817,812",
