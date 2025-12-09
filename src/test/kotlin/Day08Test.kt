@@ -34,6 +34,27 @@ class Day08Test {
     }
 
     @Test
+    fun buildCircuit_with_two_connection_connected_from_first_inverted() {
+        val connections = listOf(2 to 3, 1 to 2)
+        val expected = listOf(listOf(1, 2, 3))
+        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+    }
+
+    @Test
+    fun buildCircuit_with_two_connection_connected_from_second_inverted() {
+        val connections = listOf(1 to 3, 1 to 2)
+        val expected = listOf(listOf(1, 2, 3))
+        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+    }
+
+    @Test
+    fun buildCircuit_with_triangle() {
+        val connections = listOf(1 to 2, 2 to 3, 1 to 3)
+        val expected = listOf(listOf(1, 2, 3))
+        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+    }
+
+    @Test
     fun day08_part1_toto() {
         val input = listOf(
             "162,817,812",
