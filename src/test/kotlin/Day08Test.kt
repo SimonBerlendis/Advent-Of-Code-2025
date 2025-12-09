@@ -3,12 +3,20 @@ import org.example.day08_part1
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContains
+import kotlin.test.assertContentEquals
 
 class Day08Test {
     @Test
     fun buildCircuit_with_one_connection() {
         val connections = listOf(1 to 2)
         assertContains(buildCircuit(connections), listOf(1, 2))
+    }
+
+    @Test
+    fun buildCircuit_with_two_connection() {
+        val connections = listOf(1 to 2, 3 to 4)
+        val expected = listOf(listOf(1, 2), listOf(3, 4))
+        assertContentEquals(expected, buildCircuit(connections))
     }
 
     @Test
