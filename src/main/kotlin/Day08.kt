@@ -31,19 +31,31 @@ fun day08_part1(input: List<String>, connectionsMax: Int): Int {
 }
 
 fun buildCircuit(connections: List<Pair<Int, Int>>): List<List<Int>> {
-    val circuit = mutableListOf<MutableList<Int>>()
+    val circuit = mutableListOf<MutableList<Pair<Int, Int>>>()
     for (connection in connections) {
-        if (circuit.any { it.contains(connection.first) } && circuit.any { it.contains(connection.second) }) {
+        if (circuit.any { it.flatMap { it.toList() }.containsAll(connection.toList()) }) {
             continue
-        } else if (circuit.any { it.contains(connection.first) }) {
-            circuit.first { it.contains(connection.first) }.add(connection.second)
-        } else if (circuit.any { it.contains(connection.second) }) {
-            circuit.first { it.contains(connection.second) }.add(connection.first)
+        } else if (circuit.any { it.flatMap { it.toList() }.contains(connection.first) }) {
+            circuit.first { it.flatMap { it.toList() }.contains(connection.first) }.add(connection)
+        } else if (circuit.any { it.flatMap { it.toList() }.contains(connection.second) }) {
+            circuit.first { it.flatMap { it.toList() }.contains(connection.second) }.add(connection)
         } else {
-            circuit.add(mutableListOf(connection.first, connection.second))
+            circuit.add(mutableListOf(connection))
         }
     }
-    return circuit
+    return circuit.map { it.flatMap { it.toList() } }.merge()
+}
+
+private fun List<List<Int>>.merge(): List<List<Int>> {
+    val result = mutableListOf<MutableList<Int>>()
+    for (elements in this) {
+        if(result.any { it.any { elements.contains(it) } }){
+            result.first { it.any { elements.contains(it) } }.addAll(elements)
+        } else {
+            result.add(elements.toMutableList())
+        }
+    }
+    return result.map { it.distinct() }
 }
 
 private fun getPoints(input: List<String>): List<Point> =
