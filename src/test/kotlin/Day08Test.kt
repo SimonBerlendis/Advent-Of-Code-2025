@@ -1,8 +1,16 @@
+import org.example.buildCircuit
 import org.example.day08_part1
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import kotlin.test.assertContains
 
 class Day08Test {
+    @Test
+    fun buildCircuit_with_one_connection() {
+        val connections = listOf(1 to 2)
+        assertContains(buildCircuit(connections), listOf(1, 2))
+    }
+
     @Test
     fun day08_part1_toto() {
         val input = listOf(
