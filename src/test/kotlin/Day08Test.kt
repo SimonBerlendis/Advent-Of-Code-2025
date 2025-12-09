@@ -1,4 +1,4 @@
-import org.example.buildCircuit
+import org.example.buildCircuits
 import org.example.day08_part1
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -9,56 +9,56 @@ class Day08Test {
     @Test
     fun buildCircuit_with_one_connection() {
         val connections = listOf(1 to 2)
-        assertContains(buildCircuit(connections), listOf(1, 2))
+        assertContains(buildCircuits(connections), listOf(1, 2))
     }
 
     @Test
     fun buildCircuit_with_two_connection() {
         val connections = listOf(1 to 2, 3 to 4)
         val expected = listOf(listOf(1, 2), listOf(3, 4))
-        assertContentEquals(expected, buildCircuit(connections))
+        assertContentEquals(expected, buildCircuits(connections))
     }
 
     @Test
     fun buildCircuit_with_two_connection_connected_from_first() {
         val connections = listOf(1 to 2, 2 to 3)
         val expected = listOf(listOf(1, 2, 3))
-        assertContentEquals(expected, buildCircuit(connections))
+        assertContentEquals(expected, buildCircuits(connections))
     }
 
     @Test
     fun buildCircuit_with_two_connection_connected_from_second() {
         val connections = listOf(1 to 2, 1 to 3)
         val expected = listOf(listOf(1, 2, 3))
-        assertContentEquals(expected, buildCircuit(connections))
+        assertContentEquals(expected, buildCircuits(connections))
     }
 
     @Test
     fun buildCircuit_with_two_connection_connected_from_first_inverted() {
         val connections = listOf(2 to 3, 1 to 2)
         val expected = listOf(listOf(1, 2, 3))
-        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+        assertContentEquals(expected, buildCircuits(connections).map { it.sorted() })
     }
 
     @Test
     fun buildCircuit_with_two_connection_connected_from_second_inverted() {
         val connections = listOf(1 to 3, 1 to 2)
         val expected = listOf(listOf(1, 2, 3))
-        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+        assertContentEquals(expected, buildCircuits(connections).map { it.sorted() })
     }
 
     @Test
     fun buildCircuit_with_triangle() {
         val connections = listOf(1 to 2, 2 to 3, 1 to 3)
         val expected = listOf(listOf(1, 2, 3))
-        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+        assertContentEquals(expected, buildCircuits(connections).map { it.sorted() })
     }
 
     @Test
     fun buildCircuit_two_circuits_mergins() {
         val connections = listOf(1 to 2, 2 to 3, 5 to 6, 3 to 6)
         val expected = listOf(listOf(1, 2, 3, 5, 6))
-        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+        assertContentEquals(expected, buildCircuits(connections).map { it.sorted() })
     }
 
     @Test
