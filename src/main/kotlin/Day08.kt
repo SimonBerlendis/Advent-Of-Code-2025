@@ -35,10 +35,9 @@ fun buildCircuit(connections: List<Pair<Int, Int>>): List<List<Int>> {
     for (connection in connections) {
         if (circuit.any { it.contains(connection.first) } && circuit.any { it.contains(connection.second) }) {
             continue
-        }
-        else if (circuit.any { it.contains(connection.first) }) {
+        } else if (circuit.any { it.contains(connection.first) }) {
             circuit.first { it.contains(connection.first) }.add(connection.second)
-        }else if (circuit.any { it.contains(connection.second) }) {
+        } else if (circuit.any { it.contains(connection.second) }) {
             circuit.first { it.contains(connection.second) }.add(connection.first)
         } else {
             circuit.add(mutableListOf(connection.first, connection.second))

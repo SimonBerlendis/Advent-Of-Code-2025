@@ -55,6 +55,13 @@ class Day08Test {
     }
 
     @Test
+    fun buildCircuit_two_circuits_mergins() {
+        val connections = listOf(1 to 2, 2 to 3, 5 to 6, 3 to 6)
+        val expected = listOf(listOf(1, 2, 3, 5, 6))
+        assertContentEquals(expected, buildCircuit(connections).map { it.sorted() })
+    }
+
+    @Test
     fun day08_part1_toto() {
         val input = listOf(
             "162,817,812",
