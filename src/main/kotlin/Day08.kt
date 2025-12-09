@@ -25,12 +25,17 @@ fun day08_part1(input: List<String>, connectionsMax: Int): Int {
         .sortedBy { points[it.first].distance(points[it.second]) }
         .take(connectionsMax)
 
+    val circuit = buildCircuit(connections)
+
+    return circuit.map { it.size }.sorted().take(3).reduce { acc, i -> acc * i }
+}
+
+private fun buildCircuit(connections: List<Pair<Int, Int>>): MutableList<List<Int>> {
     val circuit = mutableListOf<List<Int>>()
     for (connection in connections) {
         circuit.add(listOf(connection.first, connection.second))
     }
-
-    return circuit.map { it.size }.sorted().take(3).reduce { acc, i -> acc * i }
+    return circuit
 }
 
 private fun getPoints(input: List<String>): List<Point> =
