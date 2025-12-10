@@ -44,6 +44,29 @@ private fun getPoints(input: List<String>): List<Point> =
     input.map { line -> line.split(",").map { it.toLong() } }
         .map { Point(it[0], it[1], it[2]) }
 
-fun day08_part2(input: List<String>): Int {
-    return 0
+fun day08_part2(input: List<String>): Long {
+    val points = getPoints(input)
+
+    val circuit = buildSingleCircuit(points)
+
+    val firstPoint = points[circuit.last().first]
+    val secondPoint = points[circuit.last().second]
+    return firstPoint.x * secondPoint.x
+}
+
+fun buildSingleCircuit(points: List<Point>): List<Pair<Int, Int>> {
+    val closestPairs = (0..<points.size - 1).flatMap { i -> ((i + 1)..<points.size).map { j -> i to j } }
+        .sortedBy { points[it.first].distance(points[it.second]) }
+
+    val circuits = points.indices.map { listOf(it) }.toMutableList()
+    for ((index, connection) in closestPairs.withIndex()) {
+        if (circuits.size == 1) {
+            return closestPairs.take(index)
+        }
+        val circuitsToMerge = circuits.filter { it.contains(connection.first) || it.contains(connection.second) }
+        circuits.removeAll(circuitsToMerge)
+        circuits.add((circuitsToMerge.flatten() + connection.toList()).toMutableList())
+    }
+
+    return closestPairs
 }
